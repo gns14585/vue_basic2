@@ -1,6 +1,7 @@
 <template>
   <div class="event">
     <p>{{ text }}</p>
+    <button>X</button>
   </div>
 </template>
 
@@ -9,8 +10,8 @@ export default {
   name: "EventComponent",
   props: {
     text: String,
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -20,9 +21,17 @@ export default {
   padding: 10px 20px;
   text-align: center;
   font-size: small;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  display: none;
 }
 
 .event p {
+  margin: 0;
+}
+
+.event button {
   margin: 0;
 }
 </style>
