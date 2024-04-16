@@ -1,7 +1,7 @@
 <template>
-  <div class="event">
+  <div class="event" :class="{ show: isOpen }">
     <p>{{ text }}</p>
-    <button>X</button>
+    <button @click="isOpen = false">X</button>
   </div>
 </template>
 
@@ -10,6 +10,11 @@ export default {
   name: "EventComponent",
   props: {
     text: String,
+  },
+  data() {
+    return {
+      isOpen: true,
+    };
   },
 };
 </script>
@@ -25,6 +30,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   display: none;
+}
+
+.show {
+  display: flex;
 }
 
 .event p {
