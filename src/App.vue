@@ -1,4 +1,6 @@
 <template>
+  <Navbar />
+  <Event :text="text" />
   <h1>영화정보</h1>
   <div v-for="(movie, i) in data" :key="i">
     <figure>
@@ -12,18 +14,25 @@
       <button @click="increseLike(i)">좋아요</button>
       <span>{{ movie.like }}</span>
       <p>
-        <button @click="isModal = true">상세보기</button>
+        <button
+          @click="
+            isModal = true;
+            selectedMovie = i;
+          "
+        >
+          상세보기
+        </button>
       </p>
     </div>
   </div>
 
-  <div class="modal" v-if="isModal">
-    <div class="inner">
-      <h3>Detail</h3>
-      <p>영화 상세정보</p>
-      <button @click="isModal = false">닫기</button>
-    </div>
-  </div>
+  <Modal
+    :data="data"
+    :isModal="isModal"
+    :selectedMovie="selectedMovie"
+    @closeModal="isModal = false"
+  />
+  <!-- 자식컴포넌트에서 보낸 이벤트는 @골뱅이로 받기 -->
 </template>
 
 <script>
@@ -31,6 +40,9 @@
 // movies는 단일 데이터이기 때문에 export default 로 사용
 // 여러개의 데이터를 가져올땐 export {} 만 사용
 import data from "./assets/movies";
+import Navbar from "@/components/Navbar.vue";
+import Modal from "@/components/Modal.vue";
+import Event from "@/components/Event.vue";
 
 export default {
   name: "App",
@@ -38,12 +50,19 @@ export default {
     return {
       isModal: false,
       data: data,
+      selectedMovie: 0,
+      text: "NEPLIX 강렬한 운명의 드라마, 경기크리처!!!",
     };
   },
   methods: {
     increseLike(i) {
       this.data[i].like += 1;
     },
+  },
+  components: {
+    Navbar: Navbar,
+    Event: Event,
+    Modal: Modal,
   },
 };
 </script>
